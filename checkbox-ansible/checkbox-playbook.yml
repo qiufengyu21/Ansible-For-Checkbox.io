@@ -5,7 +5,7 @@
   vars:
     mongo_user: admin
     mongo_password: admin123 
-    git_repo_folder: "/home/ubuntu"
+    git_repo_folder: "/home/ubuntu/devops"
     ansible_python_interpreter: /usr/bin/python3
   environment:
     MONGO_PORT: 3002

@@ -4,9 +4,25 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-    #- mongodb
+#    - git
+#    - mongodb
     - python-pip
     - nginx
+
+- name: Add the NodeSource package signing key
+  apt_key:
+    url: "{{ node_key }}"
+    state: present
+
+- name: Add nodejs repo
+  apt_repository:
+    repo: "{{node_repo}}"
+    state: present
+
+- name: Install nodejs
+  apt:
+    pkg: nodejs
+    state: present
 
 - name: Install pymongo
   pip:

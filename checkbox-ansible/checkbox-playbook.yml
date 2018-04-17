@@ -5,7 +5,8 @@
   vars:
     mongo_user: admin
     mongo_password: admin123 
-    git_repo_folder: "/devops/checkbox.io"
+    git_repo_folder: "/home/vagrant/checkbox.io"
+    ansible_python_interpreter: /usr/bin/python3
   environment:
     MONGO_PORT: 3002
     MONGO_IP: 127.0.0.1
@@ -52,19 +53,18 @@
       path: /etc/nginx/sites-available/default
       regexp: 'root*'
       line: "root {{ git_repo_folder }}/public_html/;"
-
   
   - name: Install Node Modules
     shell: cd {{ git_repo_folder }}/server-side/site ; npm install
     become: yes
   
   - name: Start Node JS
-    shell: cd {{ git_repo_folder }}/server-side/site; nohup node server.js &
+    shell: nohup node server.js &
     become: yes
   
-#  - name: restart nginx
-#    become: yes
-#    become_method: sudo
-#    service:
-#      name: nginx
-#      state: restarted
+  - name: restart nginx
+    become: yes
+    become_method: sudo
+    service:
+      name: nginx
+      state: restarted

@@ -59,7 +59,7 @@
     become: yes
   
   - name: Start Node JS
-    shell: nohup node server.js &
+    shell: cd {{ git_repo_folder }}/server-side/site; nohup node server.js &
     become: yes
   
 #  - name: restart nginx

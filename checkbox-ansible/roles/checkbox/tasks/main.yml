@@ -4,8 +4,6 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-#    - git
-#    - mongodb
     - python-pip
     - nginx
 
@@ -22,11 +20,6 @@
 - name: Install nodejs
   apt:
     pkg: nodejs
-    state: present
-
-- name: Install pymongo
-  pip:
-    name: pymongo
     state: present
 
 - name: Clone repo
@@ -48,10 +41,10 @@
   blockinfile:
     path: /etc/environment
     block: |
-      export MONGO_IP={{ lookup('env', 'MONGO_IP') }}
-      export MONGO_PORT={{ lookup('env', 'MONGO_PORT') }}
-      export MONGO_USER={{ lookup('env', 'MONGO_USER') }}
-      export MONGO_PASSWORD={{ lookup('env', 'MONGO_PASSWORD') }}
+      export MONGO_IP=127.0.0.1
+      export MONGO_PORT=3002
+      export MONGO_USER="admin"
+      export MONGO_PASSWORD="admim123"
     create: yes
     state: present
 
@@ -76,19 +69,6 @@
     path: /data/db
     state: directory
     mode: 0777
-
-#- name: Restart mongod service
-#  service:
-#    name: mongodb
-#    state: restarted
-
-#- name: Add MongoDB admin user
-#  mongodb_user:
-#    database: admin
-#    name: "{{ lookup('env', 'MONGO_USER') }}"
-#    password: "{{ lookup('env', 'MONGO_PASSWORD') }}"
-#    roles: userAdminAnyDatabase
-#    state: present
 
 - name: Stop all forever scripts
   command: forever stopall

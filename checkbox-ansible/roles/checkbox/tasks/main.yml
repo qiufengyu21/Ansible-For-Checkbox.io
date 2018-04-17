@@ -73,7 +73,8 @@
 - name: Stop all forever scripts
   command: forever stopall
 
-- name: Start server.js using forever
-  command: forever start server.js
-  args:
-    chdir: "{{ checkbox_dest }}/server-side/site/"
+#- name: Start server.js using forever
+#  command: forever start server.js
+#  args:
+#    chdir: "{{ checkbox_dest }}/server-side/site/"
+
